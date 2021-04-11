@@ -1,6 +1,4 @@
 from typing import List, Tuple
-from attr.setters import convert
-
 import numpy as np
 import cirq
 from numpy.core.fromnumeric import size
@@ -38,35 +36,6 @@ def matrix_to_sycamore_operations(
 
     if np.trace(matrix)==len(matrix):
         return [],[]
-    
-    # def incrementors(target_qubits,matrix):
-    #     def xor_swap(a, b):
-    #         """Swaps two qubits with three CNOTs."""
-    #         yield cirq.CNOT(a, b) # |a> |b> --> |a> |a ^ b>
-    #         yield cirq.CNOT(b, a) # |a> |a ^ b> --> |a ^ a ^ b> | a ^ b> = |b>|a^b>
-    #         yield cirq.CNOT(a, b)
-
-    #     def check_left_rotate(M):
-    #         I = np.identity(M.shape[0])
-    #         if np.all((np.matmul(M, M.T)) == I) and (np.linalg.det(M)==1): return True
-    #         return False
-
-    #     def left_rotate(qubits):
-    #         for i in range(len(qubits) - 1):
-    #             a, b = qubits[i: i + 2]
-    #             yield xor_swap(a, b)
-        
-    #     if (check_left_rotate(matrix)):
-    #         return cirq.Circuit(left_rotate(target_qubits))
-    #     else:
-    #         return None
-            
-
-    # incre=incrementors(target_qubits,matrix)
-    # if incre != None: 
-    #     print("hh")
-    #     return optimize_circuit(incre)
-
 
     if len(matrix)==2:
         try:
@@ -137,47 +106,6 @@ def matrix_to_sycamore_operations(
 
         except TypeError:
             return NotImplemented,[]
-
-
-    # def T(n,a,b,x) :
-    #     m = 2**(n-a)+2**(n-b)
-    #     d = lambda i : 2**(n-x) if (2**(n-x)) & i == 0 else -(2**(n-x))
-    #     T = np.array([([0] * 2**n)] * 2**n)
-    #     for i in range(2**n) :
-    #         for j in range(2**n) :
-    #             T[i][j] = 1 if (i & m == m and j == d(i) + i) or (i & m != m and j == i) else 0
-    #     return T
-    
-    
-    # A=np.array([[1,1],[1,-1]])*(1/np.sqrt(2))
-    # A=T(3,1,2,3)
-    # A=np.identity(8)
-    # A[7][7]=-1
-    # print(type(A))
-
-    # A=cirq.unitary(cirq.CCX)
-    # print(A)
-
-    # temp=quantum_decomp.matrix_to_cirq_circuit(A=matrix)
-    # print(repr(temp))
-    # print(type(temp[0]))
-    # # temp2=quantum_decomp.matrix_to_gates(A)
-    # # print(temp2)
-    # out2=cirq.google.optimized_for_sycamore(temp,optimizer_type='sycamore')
-    # print(out2)
-    # try:
-    #     out=[]
-    #     converter = cirq.google.ConvertToSycamoreGates()
-    #     for _ in temp.all_operations():
-    #     #     # if isinstance(_,cirq.ops.controlled_operation.ControlledOperation): 
-    #     #         # _
-    #     #     print(type(_))
-    #         out.append(converter.convert(_))
-    #     # print(out)
-    #     return out, []
-
-
-    # except BaseException as es:
 
     return NotImplemented,[]
 
